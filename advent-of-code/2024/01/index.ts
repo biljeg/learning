@@ -1,4 +1,4 @@
-// load the file and seperate the two lists into two arrays
+// this is the first part of the challenge done
 import { readFile } from "node:fs/promises";
 
 async function getInput(path: string) {
@@ -12,24 +12,25 @@ async function getInput(path: string) {
 }
 
 async function main() {
-  const input = await getInput(
-    "/Users/bruno/Development/Learning/Learning monorepo/learning/advent-of-code/2024/01/input.txt",
-  );
-  const col1: string[] = [];
-  const col2: string[] = [];
-  const temp = input?.split("\n");
-  temp?.forEach(item => {
+  const input = await getInput("./input.txt");
+  const col1: number[] = [];
+  const col2: number[] = [];
+  const stringArr = input?.split("\n");
+  stringArr?.pop();
+
+  let totalDistance = 0;
+  stringArr?.forEach(item => {
     const [str1, str2] = item.split("   ");
-    col1.push(str1);
-    col2.push(str2);
+    col1.push(parseInt(str1));
+    col2.push(parseInt(str2));
   });
-  console.log(col1);
-  console.log(col2);
+  col1.sort();
+  col2.sort();
+  for (let i = 0; i < col1.length; i++) {
+    const difference = Math.abs(col1[i] - col2[i]);
+    totalDistance += difference;
+  }
+  return totalDistance;
 }
 
-// sort the arrays
-
-// create a valiable called total distance
-// loop through them and tally up the distances between the numbers (the absolute value of their difference)
-// return the final number
 main();
